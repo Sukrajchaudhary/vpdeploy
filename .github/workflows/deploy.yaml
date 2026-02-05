@@ -19,5 +19,6 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
             cd /home/administrator/vpdeploy
-            git pull
-            docker-compose up -d --build
+            git fetch --all
+            git reset --hard origin/master
+            docker compose up -d --build || docker-compose up -d --build
