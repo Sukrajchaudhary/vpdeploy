@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to the Express API!',
-    status: 'success'
+    status: 'Finally CI/CD Success Bro!'
   });
 });
 
