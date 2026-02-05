@@ -16,8 +16,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST}}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          key: ${{ secrets.PRIVATE_KEY }}
           script: |
             cd /home/administrator/vpdeploy
             git pull
