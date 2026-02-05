@@ -11,14 +11,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Docker
+      
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST}}
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
+            set -e
             cd /home/administrator/vpdeploy
+            echo "Pulling latest code..."
             git fetch --all
             git reset --hard origin/master
+            echo "Stopping containers..."
+            docker compose down 2>/dev/null || docker-compose down 2>/dev/null || true
+            echo "Building and starting containers..."
             docker compose up -d --build || docker-compose up -d --build
+            echo "Deployment complete!"
